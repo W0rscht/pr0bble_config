@@ -6,9 +6,9 @@ function pr0bble_initialize ( platform, configuration_json, return_to ) {
 
  for (var element in configuration) {
     if (typeof configuration[element] === 'boolean') {
-      $('#'+ element).prop('checked', configuration[element] );
+      $('[name='+ element +']').prop('checked', configuration[element] );
     } else {
-      $('#'+ element).val( configuration[element] );
+      $('[name='+ element +']').val( configuration[element] );
     }
   }
 
@@ -20,17 +20,16 @@ function pr0bble_initialize ( platform, configuration_json, return_to ) {
 function pr0bble_store( return_to ) {
 
   var configuration = {};
-  $.each( ['username'], function(index, element) {
+  $.each( ['username', 'config_dickbutt', 'config_dickbutt_intensity'], function(index, element) {
 
-      if ($('#'+ element).type === 'checkbox') {
-        configuration[element] = $('#'+ element).checked;
+      if ($('#'+ element).attr('type') === 'checkbox') {
+        configuration[element] = $('#'+ element).prop('checked');;
       }
       else {
         configuration[element] = $('#'+ element).val();
       }
   });
 
-  return_to           += "#";
   window.location.href = return_to + encodeURIComponent(JSON.stringify(configuration));
 
   return false;
